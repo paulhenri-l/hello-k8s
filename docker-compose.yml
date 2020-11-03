@@ -1,0 +1,33 @@
+version: '3'
+services:
+  app:
+    image: hello-k8s-app
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    env_file:
+      - .env
+    volumes: ["logs:/app/storage/logs"]
+
+  nginx:
+    image: hello-k8s-nginx
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    environment:
+      PHP_FPM_HOST: app
+      PHP_FPM_PORT: 9000
+    ports:
+      - 8000:80
+    depends_on:
+      - app
+
+  app-log-tail:
+    build:
+      context: .
+      dockerfile: docker/tail/Dockerfile
+    image: hello-k8s-tail
+    volumes: ["logs:/app/storage/logs"]
+
+volumes:
+  logs:
