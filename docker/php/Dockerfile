@@ -18,7 +18,7 @@ COPY docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY --chown=82:82 --from=build /app/vendor /app/vendor
 COPY --chown=82:82 . /app
 
-RUN mkdir /var/log/shared
+RUN mkdir /app/storage/logs
 RUN composer dump-autoload --optimize
 
 #----------------------------------- START ------------------------------------#
