@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          dockerfile: './docker/php/Dockerfile'
+          file: './docker/php/Dockerfile'
           platforms: linux/amd64
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
@@ -72,7 +72,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          dockerfile: './docker/nginx/Dockerfile'
+          file: './docker/nginx/Dockerfile'
           platforms: linux/amd64
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
