@@ -16,7 +16,6 @@ services:
       dockerfile: docker/nginx/Dockerfile
     environment:
       PHP_FPM_HOST: app
-      PHP_FPM_PORT: 9000
     ports:
       - 8000:80
     depends_on:

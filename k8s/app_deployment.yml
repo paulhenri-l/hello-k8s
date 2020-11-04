@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-k8s
+  annotations:
+    app.kubernetes.io/version: 0.1.0
+    app.kubernetes.io/managed-by: "PHL"
+    app.kubernetes.io/name: hello-k8s
+    app.kubernetes.io/instance: local
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hello-k8s
+      app.kubernetes.io/instance: local
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hello-k8s
+        app.kubernetes.io/instance: local
+
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/paulhenri-l/hello-k8s-app:master
+          imagePullPolicy: "Always"
+          env:
+            - name: APP_KEY
+              value: "00000000000000000000000000000000"
+          volumeMounts:
+            - mountPath: "/app/storage/logs"
+              name: shared-logs
+
+        - name: nginx
+          image: ghcr.io/paulhenri-l/hello-k8s-nginx:master
+          imagePullPolicy: "Always"
+
+        - name: tail
+          image: ghcr.io/paulhenri-l/hello-k8s-tail:master
+          imagePullPolicy: "Always"
+          volumeMounts:
+            - mountPath: "/app/storage/logs"
+              name: shared-logs
+
+      volumes:
+        - name: "shared-logs"
+          emptyDir:
+            medium: "Memory"
