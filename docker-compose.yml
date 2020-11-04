@@ -26,7 +26,9 @@ services:
       context: .
       dockerfile: docker/tail/Dockerfile
     image: hello-k8s-tail
-    volumes: ["logs:/app/storage/logs"]
+    environment:
+      WATCHED_FILE: "/tmp/laravel.log"
+    volumes: ["logs:/tmp"]
 
 volumes:
   logs:
