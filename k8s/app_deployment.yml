@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/instance: local
 
 spec:
-  replicas: 5
+  replicas: 1
 
   selector:
     matchLabels:
