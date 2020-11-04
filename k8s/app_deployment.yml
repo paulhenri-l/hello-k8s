@@ -9,6 +9,8 @@ metadata:
     app.kubernetes.io/instance: local
 
 spec:
+  replicas: 5
+
   selector:
     matchLabels:
       app.kubernetes.io/name: hello-k8s
@@ -45,5 +47,4 @@ spec:
 
       volumes:
         - name: "shared-logs"
-          emptyDir:
-            medium: "Memory"
+          emptyDir: {}
