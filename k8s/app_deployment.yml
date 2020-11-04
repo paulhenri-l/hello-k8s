@@ -41,8 +41,11 @@ spec:
         - name: tail
           image: ghcr.io/paulhenri-l/hello-k8s-tail:master
           imagePullPolicy: "Always"
+          env:
+            - name: WATCHED_FILE
+              value: "/tmp/laravel.log"
           volumeMounts:
-            - mountPath: "/app/storage/logs"
+            - mountPath: "/tmp"
               name: shared-logs
 
       volumes:
